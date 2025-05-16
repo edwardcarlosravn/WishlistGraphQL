@@ -1,0 +1,13 @@
+"""
+Real-time event notifications that clients can subscribe to.
+Enables live updates for critical application state changes without polling.
+"""
+type Subscription {
+  """
+  Notifies when a product's stock quantity changes.
+  Triggered by inventory updates, purchases, or stock adjustments.
+  Returns the updated product item with current stock levels.
+  Useful for displaying real-time availability information to users.
+  """
+  productStockChanged(productItemId: ID!): ProductItem
+}

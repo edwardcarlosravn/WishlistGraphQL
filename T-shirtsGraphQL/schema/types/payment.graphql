@@ -1,0 +1,13 @@
+"""
+Record of a payment transaction processed through Stripe.
+Contains payment status, amount, and receipt information.
+Used to track payment lifecycle and provide transaction history.
+"""
+type StripePayment {
+  id: ID!
+  paymentIntentId: String!
+  amount: Decimal!
+  status: String!
+  receiptUrl: String
+  createdAt: DateTime!
+}

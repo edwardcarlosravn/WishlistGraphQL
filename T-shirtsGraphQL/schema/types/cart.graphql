@@ -1,0 +1,22 @@
+"""
+User's shopping cart containing selected items for purchase.
+Tracks product selections, quantities, and calculated totals for checkout.
+"""
+type ShoppingCart {
+  id: ID!
+  items: [CartItem!]!
+  totalItems: Int!
+  totalPrice: Decimal!
+}
+
+"""
+Individual product item in a shopping cart.
+Maintains reference to the specific product variation, quantity desired,
+and price at time of addition to cart.
+"""
+type CartItem {
+  id: ID!
+  productItem: ProductItem!
+  quantity: Int!
+  price: Decimal!
+}

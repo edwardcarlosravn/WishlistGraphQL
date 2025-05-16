@@ -1,0 +1,33 @@
+"""
+Customer order record containing purchased items, shipping information, and payment status.
+Tracks the complete order lifecycle from creation through fulfillment.
+"""
+type ShopOrder {
+  id: ID!
+  user: User!
+  status: OrderStatus!
+  total: Decimal!
+  lines: [OrderLine!]!
+  shippingAddress: String!
+  payment: StripePayment
+  createdAt: DateTime!
+}
+
+"""
+Individual line item within an order.
+Links to a specific product item with quantity and price at time of purchase.
+"""
+type OrderLine {
+  productItem: ProductItem!
+  quantity: Int!
+  price: Decimal!
+}
+
+"""
+Combined response returned when creating a new order.
+Provides both order details and payment processing information.
+"""
+type OrderResult {
+  order: ShopOrder!
+  paymentIntent: StripePayment
+}

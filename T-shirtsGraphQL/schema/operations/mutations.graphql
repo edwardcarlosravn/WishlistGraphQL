@@ -1,0 +1,112 @@
+type Mutation {
+  """
+  Registers a new user account with the provided profile information.
+  Returns authentication token and user profile upon successful registration.
+  """
+  signUp(input: SignUpInput!): AuthPayload!
+  
+  """
+  Authenticates a user with email and password credentials.
+  Returns authentication token and user profile upon successful login.
+  """
+  signIn(input: SignInInput!): AuthPayload!
+  
+  """
+  Invalidates the current user's authentication token.
+  Requires authentication.
+  """
+  signOut: Boolean! @isAuthenticated
+  
+  """
+  Initiates password reset process by sending a reset link to the provided email.
+  Returns true if the email was sent successfully, regardless of whether the account exists.
+  """
+  forgotPassword(email: String!): Boolean!
+  
+  """
+  Resets a user's password using a valid reset token.
+  Returns true if password was successfully reset.
+  """
+  resetPassword(token: String!, newPassword: String!): Boolean!
+
+  # Product Management
+  """
+  Creates a new product in the catalog with the specified details.
+  Restricted to users with MANAGER role.
+  """
+  createProduct(input: ProductInput!): Product! @hasRole(role: MANAGER)
+  
+  """
+  Updates an existing product with new information.
+  Restricted to users with MANAGER role.
+  """
+  updateProduct(id: ID!, input: ProductInput!): Product! @hasRole(role: MANAGER)
+  
+  """
+  Permanently removes a product from the catalog.
+  Restricted to users with MANAGER role.
+  """
+  deleteProduct(id: ID!): Boolean! @hasRole(role: MANAGER)
+  
+  """
+  Toggles a product's active status without changing other properties.
+  Restricted to users with MANAGER role.
+  """
+  toggleProductActive(id: ID!): Product! @hasRole(role: MANAGER)
+  
+  """
+  Uploads and associates images with a product variation.
+  Restricted to users with MANAGER role.
+  """
+  uploadProductImages(productId: ID!, images: [Upload!]!): [VariationImage!]! @hasRole(role: MANAGER)
+
+  """
+  Adds a product item to the user's shopping cart.
+  Creates a new cart if one doesn't exist. Requires authentication.
+  """
+  addToCart(productItemId: ID!, quantity: Int!): ShoppingCart! @isAuthenticated
+  
+  """
+  Updates the quantity of an existing cart item.
+  Requires authentication.
+  """
+  updateCartItem(itemId: ID!, quantity: Int!): ShoppingCart! @isAuthenticated
+  
+  """
+  Removes an item from the user's shopping cart.
+  Requires authentication.
+  """
+  removeFromCart(itemId: ID!): ShoppingCart! @isAuthenticated
+
+  # Orders
+  """
+  Converts the current shopping cart into an order.
+  Requires a shipping address and authenticated user.
+  Returns both order details and optional payment intent.
+  """
+  createOrder(shippingAddress: String!): OrderResult! @isAuthenticated
+  
+  """
+  Updates the status of an existing order.
+  Restricted to users with MANAGER role.
+  """
+  updateOrderStatus(id: ID!, status: OrderStatus!): ShopOrder! @hasRole(role: MANAGER)
+  """
+  Adds a product to the user's favorites list.
+  Requires authentication.
+  """
+  likeProduct(productId: ID!): UserFavorite! @isAuthenticated
+  
+  """
+  Removes a product from the user's favorites list.
+  Requires authentication.
+  """
+  unlikeProduct(productId: ID!): Boolean! @isAuthenticated
+
+  """
+  Creates a Stripe payment intent for processing payment for an order.
+  Returns payment details including client secret for frontend processing.
+  Requires authentication.
+  """
+  createPaymentIntent(orderId: ID!): StripePayment! @isAuthenticated
+}

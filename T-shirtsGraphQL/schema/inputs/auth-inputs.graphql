@@ -1,0 +1,20 @@
+"""
+User registration input containing all required and optional profile information.
+Used when creating new user accounts in the system.
+"""
+input SignUpInput {
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
+  phone: String
+}
+
+"""
+Authentication credentials for existing users.
+Used to validate user identity and generate access tokens.
+"""
+input SignInInput {
+  email: String!
+  password: String!
+}

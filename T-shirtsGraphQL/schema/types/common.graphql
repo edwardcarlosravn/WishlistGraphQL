@@ -1,0 +1,15 @@
+scalar DateTime
+scalar Decimal
+scalar Upload
+
+"""
+Authentication directive that restricts field access to logged-in users only.
+Fields with this directive will return an authentication error for unauthenticated requests.
+"""
+directive @isAuthenticated on FIELD_DEFINITION | FIELD
+
+"""
+Role-based authorization directive that restricts field access to users with specific roles.
+Takes a required role parameter and validates the current user has sufficient permissions.
+"""
+directive @hasRole(role: UserRole!) on FIELD_DEFINITION | FIELD

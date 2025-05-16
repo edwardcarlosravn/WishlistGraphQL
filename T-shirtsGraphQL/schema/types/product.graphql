@@ -1,0 +1,67 @@
+type ProductDetails {
+  id: ID!
+  name: String!
+  description: String
+  categories: [ProductCategory!]!
+  variations: [ProductVariation!]!
+  items: [ProductItem!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  categories: [ProductCategory!]!
+  thumbnail: String
+  isActive: Boolean!
+}
+
+type ProductVariation {
+  id: ID!
+  images: [VariationImage!]!
+  items: [ProductItem!]!
+}
+
+type VariationImage {
+  url: String!
+  altText: String
+}
+
+type ProductItem {
+  id: ID!
+  sku: String!
+  price: Decimal!
+  stock: Int!
+  attributes: [AttributeValue!]!
+  variation: ProductVariation!
+}
+
+type Attribute {
+  id: ID!
+  name: String!
+  values: [AttributeValue!]!
+}
+
+type AttributeValue {
+  id: ID!
+  value: String!
+  attribute: Attribute!
+}
+
+type ProductCategory {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  parent: ProductCategory
+  children: [ProductCategory!]!
+}
+
+type PaginatedProducts {
+  total: Int!
+  page: Int!
+  limit: Int!
+  products: [Product!]!
+}

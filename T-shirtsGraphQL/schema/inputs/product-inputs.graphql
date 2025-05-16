@@ -1,0 +1,24 @@
+"""
+Core product data required for product creation and updates.
+Contains all configurable properties including relationships to categories and attributes.
+Used by administrators to manage the product catalog.
+"""
+input ProductInput {
+  name: String!
+  description: String
+  categoryIds: [ID!]
+  price: Decimal!
+  stock: Int!
+  attributes: [AttributeInput!]
+  isActive: Boolean
+}
+
+"""
+Links product variations to specific attribute values.
+Used to define the available combinations of attributes for a product.
+Each attribute-value pair represents one dimension of the product variation.
+"""
+input AttributeInput {
+  attributeId: ID!
+  valueId: ID!
+}

@@ -1,0 +1,24 @@
+"""
+Authentication response returned after successful login or registration.
+Contains both the JWT token for API authorization and the user's profile information.
+"""
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+"""
+User entity representing a registered account in the system.
+Contains profile information, authentication details, and role-based permissions.
+Users can be either regular customers (CLIENT) or administrative staff (MANAGER).
+"""
+type User {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  role: UserRole!
+  isActive: Boolean!
+  createdAt: DateTime!
+}

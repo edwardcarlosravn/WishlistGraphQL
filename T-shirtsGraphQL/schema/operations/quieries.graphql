@@ -1,0 +1,21 @@
+type Query {
+
+  me: User
+
+  products(
+    page: Int = 1
+    limit: Int = 10
+    categoryId: ID
+    search: String
+    sortBy: ProductSortBy
+  ): PaginatedProducts!
+  product(id: ID!): ProductDetails
+  categories: [ProductCategory!]!
+
+  orders: [ShopOrder!]! @isAuthenticated
+  order(id: ID!): ShopOrder @isAuthenticated
+
+  favorites: [Product!]! @isAuthenticated
+
+  cart: ShoppingCart! @isAuthenticated
+}

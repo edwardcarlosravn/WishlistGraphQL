@@ -1,0 +1,8 @@
+"""
+Tracks products that a user has marked as favorite for later reference.
+Enables personalized product collections and notification features.
+"""
+type UserFavorite {
+  product: Product!
+  createdAt: DateTime!
+}

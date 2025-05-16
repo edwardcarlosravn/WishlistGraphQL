@@ -1,0 +1,29 @@
+"""
+Tracks the lifecycle status of a customer order from creation to completion.
+Used to control order fulfillment workflow and display appropriate status to users.
+"""
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+"""
+Defines user permission levels within the application.
+Controls access to protected resources and administrative features.
+"""
+enum UserRole {
+  CLIENT
+  MANAGER
+}
+
+"""
+Available sorting options for product listings.
+Allows customers to organize product search results according to their preferences.
+"""
+enum ProductSortBy {
+  NEWEST
+  PRICE_ASC
+  PRICE_DESC
+}
